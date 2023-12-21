@@ -1,27 +1,73 @@
-# Web
+# Transportes ACME S.A.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.1.
+La WEB ha sido desarrollada específicamente para ser utilizada por la empresa Transportes ACME S.A. 
+para tener un control a nivel administrativo de los vehículos, conductores y propietarios que se manejan
+dentro de sus operaciones diarias. La misma WEB permite a los usuarios de la plataforma consultar toda la información
+almacenada, permitiendo que se realicen las peticiones y se cumplan requerimientos de manera eficiente y efectiva.
 
-## Development server
+## Requisitos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- NodeJS (versión ^18.17.0)
+- Angular CLI
 
-## Code scaffolding
+### ¿Cómo puedo saber si tengo instalado NodeJS?
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Para conocer si tenemos instalado en nuestros equipos NodeJS, podemos ejecutar los siguientes comandos:
 
-## Build
+NodeJS:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+$ node --version
+```
 
-## Running unit tests
+Si nos devuelve una respuesta, es porqué ya tenemos instalado NodeJS en nuestro equipo.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Angular:
 
-## Running end-to-end tests
+```bash
+$ ng
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Si nos devuelve una respuesta, es porqué ya tenemos instalado la herramienta que nos permite trabajar con Angular en nuestro equipo.
+Caso que no reconozca el comando, debemos ejecutar el siguiente comando para instalar Angular.
 
-## Further help
+```bash
+$ npm i @angular/cli --location=global
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Instalación
+
+1. Clona el repositorio:
+
+```bash
+$ git remote add origin https://github.com/Nelmajuva/ACME_WEB.git
+```
+
+2. Instala las dependencias:
+
+```bash
+$ npm install
+```
+
+3. Verifique que el archivo `app > app.config.ts` contenga las variables de entorno correctas para funcionar.
+
+4. Ejecutar alguno de los siguientes comandos para iniciar la WEB de Angular:
+
+```bash
+$ npm run dev
+$ ng serve
+```
+
+La WEB estará disponible en el puerto y dirección IP proporcionada para su funcionamiento.
+
+### Notas
+
+¡Muchas gracias por la oportunidad de presentar este proyecto para el puesto de Desarrollador FullStack de la organización!
+
+Espero que mis conocimientos y forma de trabajar sea de agrado para todos ustedes. :)
+
+Aclaro que uso del patrón Redux y las prácticas de los principios S.O.L.I.D. para tener un estado de la web en general
+más organizado, claro y conciso.
+
+Por favor, contactarme al correo "camilopezm24734m@gmail.com" o a mi número de celular "+57 300 5442403" si requieren más
+información, estaré encantado en ayudarlos en todo lo que necesiten.
