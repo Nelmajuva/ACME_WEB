@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 
+import { SignInFormComponent } from '../../components/sign-in-form/sign-in-form.component';
+import { SignInHeaderComponent } from '../../components/sign-in-header/sign-in-header.component';
+
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [],
+  imports: [SignInHeaderComponent, SignInFormComponent],
   template: `
-    <p>
-      sign-in works!
-    </p>
+    <div class="w-11/12 lg:w-96">
+      <app-sign-in-header></app-sign-in-header>
+      <app-sign-in-form></app-sign-in-form>
+    </div>
   `,
-  styles: ``
+  styles: ``,
 })
-export class SignInComponent {
-
-}
+export class SignInComponent {}
