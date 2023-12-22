@@ -8,7 +8,7 @@ import { SignInComponent } from '../sign-in/sign-in.component';
   imports: [SignInComponent],
   template: `
     <div
-      class="animate__animated animate__fadeIn w-full h-full grid grid-cols-12"
+      class="animate__animated animate__fadeIn w-full h-screen grid grid-cols-12"
     >
       <div
         class="col-span-12 lg:col-span-6 h-full flex flex-col items-center justify-center"
