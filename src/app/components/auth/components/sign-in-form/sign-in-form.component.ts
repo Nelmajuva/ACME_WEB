@@ -1,19 +1,26 @@
-import { Component, inject } from '@angular/core';
 import {
   Validators,
+  FormBuilder,
   UntypedFormGroup,
-  UntypedFormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { HttpResponseBase } from '@angular/common/http';
+
+import { Store } from '@ngrx/store';
 
 import { AuthService } from '../../../../services';
 import { SweetAlertUtil } from '../../../../utils';
+import { IAppState } from '../../../../interfaces';
+import { setUser } from '../../+state/auth.actions';
 import { FormUtil } from '../../../../utils/form.util';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-sign-in-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, LoadingComponent],
   template: `
     <form
       (ngSubmit)="signInWithEmailAndPassword()"
@@ -37,7 +44,9 @@ import { FormUtil } from '../../../../utils/form.util';
             placeholder="admin@transportesacme.com.co"
           />
           @if(validate('email')) {
-          <p class="text-xs text-red-600 mt-1 animate__animated animate__fadeInUp">
+          <p
+            class="text-xs text-red-600 mt-1 animate__animated animate__fadeInUp"
+          >
             El correo electrónico es un campo requerido y debe ser válido.
           </p>
           }
@@ -59,7 +68,9 @@ import { FormUtil } from '../../../../utils/form.util';
             placeholder="*********"
           />
           @if(validate('password')) {
-          <p class="text-xs text-red-600 mt-1 animate__animated animate__fadeInUp">
+          <p
+            class="text-xs text-red-600 mt-1 animate__animated animate__fadeInUp"
+          >
             La contraseña es un campo requerido y debe ser válido.
           </p>
           }
@@ -69,7 +80,9 @@ import { FormUtil } from '../../../../utils/form.util';
         type="submit"
         class="rounded-md bg-blue-50 px-3.5 w-full h-12 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-100"
       >
-        Ingresar
+        @if(getIsLoading) {
+        <app-loading></app-loading>
+        } @else { Ingresar }
       </button>
     </form>
   `,
@@ -78,12 +91,20 @@ import { FormUtil } from '../../../../utils/form.util';
 export class SignInFormComponent {
   private isLoading: boolean;
   private readonly form: UntypedFormGroup;
+  private readonly store: Store<IAppState>;
+  private readonly authService: AuthService;
+  private readonly formBuilder: FormBuilder;
+  private readonly router: Router;
 
   constructor() {
     this.isLoading = false;
 
-    const formBuilder = inject(UntypedFormBuilder);
-    this.form = formBuilder.group({
+    this.router = inject(Router);
+    this.store = inject(Store<IAppState>);
+    this.authService = inject(AuthService);
+    this.formBuilder = inject(FormBuilder);
+
+    this.form = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required])],
     });
@@ -106,8 +127,34 @@ export class SignInFormComponent {
     this.isLoading = true;
     const dataToSignIn = this.form.value;
 
-    const authService = inject(AuthService);
-    authService.signInWithEmailAndPassword(dataToSignIn).subscribe(console.log);
+    this.authService.signInWithEmailAndPassword(dataToSignIn).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+
+        const user = res.message.user;
+        this.store.dispatch(setUser({ value: user }));
+
+        const token = res.message.access_token;
+        sessionStorage.setItem('token_access', token);
+
+        this.router.navigateByUrl('/dashboard');
+      },
+      error: (err: HttpResponseBase) => {
+        this.isLoading = false;
+
+        if (err.status === 401) {
+          SweetAlertUtil.showAlert({
+            icon: 'error',
+            text: 'Lo sentimos, pero las credenciales ingresadas no son correctas.',
+            title: '¡Datos incorrectos!',
+          });
+
+          return;
+        }
+
+        SweetAlertUtil.showServerErrorAlert();
+      },
+    });
   };
 
   /**
@@ -120,5 +167,9 @@ export class SignInFormComponent {
 
   public get getForm() {
     return this.form;
+  }
+
+  public get getIsLoading() {
+    return this.isLoading;
   }
 }

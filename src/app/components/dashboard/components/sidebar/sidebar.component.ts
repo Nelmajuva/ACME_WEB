@@ -19,12 +19,12 @@ import { ISidebar } from '../../../../interfaces';
         />
       </div>
       <nav class="mt-8 flex-1 w-full">
-        <ul role="list" class="flex flex-col items-center space-y-1">
+        <ul role="list" class="flex flex-col items-center space-y-2">
           @for (option of getMenuOptions; track $index) {
           <li>
             <a
               [routerLink]="option['url']"
-              class="cursor-pointer bg-gray-800 text-white group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold mb-1"
+              class="w-10 h-10 cursor-pointer bg-gray-950 text-white group flex rounded-md text-sm font-semibold items-center justify-center"
             >
               <i [classList]="option['icon']"></i>
               <span class="sr-only">{{ option['name'] }}</span>

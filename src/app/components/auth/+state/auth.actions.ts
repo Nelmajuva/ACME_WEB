@@ -1,10 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 
+import { IUser } from '../../../interfaces';
+
 const prefix = '[Auth]';
 
-const setLoading = createAction(
-  `${prefix} Set value of loading`,
-  props<{ value: boolean }>
+const setUser = createAction(
+  `${prefix} Set user`,
+  props<{ value: IUser | null }>()
 );
 
-export { setLoading };
+export { setUser };

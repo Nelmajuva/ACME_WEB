@@ -1,3 +1,5 @@
+import { IUser } from "./user.interface";
+
 export interface IAuthState {
-  isLoading: boolean;
+  user: IUser | null;
 }

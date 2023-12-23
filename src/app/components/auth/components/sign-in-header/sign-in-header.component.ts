@@ -6,11 +6,18 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
     <div class="flex flex-col items-center justify-center mb-4">
-      <img
-        class="h-24 w-auto"
-        src="https://seeklogo.com/images/A/angular-icon-logo-5FC0C40EAC-seeklogo.com.png"
-        alt="Transportes ACME S.A."
-      />
+      <div class="flex gap-x-6">
+        <img
+          class="h-24 w-auto"
+          src="https://seeklogo.com/images/A/angular-icon-logo-5FC0C40EAC-seeklogo.com.png"
+          alt="Transportes ACME S.A."
+        />
+        <img
+          class="h-24 w-auto"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/800px-Laravel.svg.png"
+          alt="Transportes ACME S.A."
+        />
+      </div>
       <p class="text-2xl font-bold mt-4">TRANSPORTES ACME S.A.</p>
     </div>
     <div class="border-l-4 border-blue-400 bg-blue-50 p-4 mb-4">
