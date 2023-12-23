@@ -23,9 +23,9 @@ import { Component } from '@angular/core';
         </div>
         <div class="ml-3 flex-1 md:flex md:justify-between">
           <p class="text-sm text-blue-700">
-            Hola ADMIN realmente me hubiera gustado dar muchísimo más de lo que
-            me han solicitado, pero intente agregar elementos adicionales acorde
-            a la prueba y mi experiencia como desarrollador.
+            Hola ADMIN, intente agregar elementos adicionales acorde a la prueba
+            y mi experiencia como desarrollador para destacar en este
+            entregable.
           </p>
           <p class="text-sm">
             <a
