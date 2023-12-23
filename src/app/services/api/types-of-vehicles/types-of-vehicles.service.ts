@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from '../../../app.config';
-import { IInfoResponse, IResponse } from '../../../interfaces';
+import { IInfoResponse, IResponse, ITypeOfVehicle } from '../../../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,8 @@ export class TypesOfVehiclesService {
     this.httpClient = inject(HttpClient);
   }
 
-  public store = (data: any) => {
-    return this.httpClient.post<IResponse<any>>(`${this.urlApi}`, data, {
+  public store = (data: Partial<ITypeOfVehicle>) => {
+    return this.httpClient.post<IResponse<ITypeOfVehicle>>(`${this.urlApi}`, data, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),
       }),
@@ -25,7 +25,7 @@ export class TypesOfVehiclesService {
   };
 
   public show = (id: number) => {
-    return this.httpClient.get<IResponse<any>>(
+    return this.httpClient.get<IResponse<ITypeOfVehicle>>(
       `${this.urlApi}/${id}`,
       {
         headers: new HttpHeaders({
@@ -35,8 +35,8 @@ export class TypesOfVehiclesService {
     );
   };
 
-  public update = (id: number, data: any) => {
-    return this.httpClient.put<IResponse<any>>(
+  public update = (id: number, data: Partial<ITypeOfVehicle>) => {
+    return this.httpClient.put<IResponse<ITypeOfVehicle>>(
       `${this.urlApi}/${id}`,
       data,
       {
@@ -48,7 +48,7 @@ export class TypesOfVehiclesService {
   };
 
   public index = () => {
-    return this.httpClient.get<IResponse<IInfoResponse<any>>>(
+    return this.httpClient.get<IResponse<IInfoResponse<ITypeOfVehicle>>>(
       `${this.urlApi}`,
       {
         headers: new HttpHeaders({

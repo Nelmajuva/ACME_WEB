@@ -16,7 +16,7 @@ export class MotorsOfVehiclesService {
     this.httpClient = inject(HttpClient);
   }
 
-  public store = (data: any) => {
+  public store = (data: Partial<IMotorOfVehicle>) => {
     return this.httpClient.post<IResponse<IMotorOfVehicle>>(`${this.urlApi}`, data, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),
@@ -35,7 +35,7 @@ export class MotorsOfVehiclesService {
     );
   };
 
-  public update = (id: number, data: any) => {
+  public update = (id: number, data: Partial<IMotorOfVehicle>) => {
     return this.httpClient.put<IResponse<IMotorOfVehicle>>(
       `${this.urlApi}/${id}`,
       data,

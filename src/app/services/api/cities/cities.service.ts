@@ -16,7 +16,7 @@ export class CitiesService {
     this.httpClient = inject(HttpClient);
   }
 
-  public store = (data: any) => {
+  public store = (data: Partial<ICity>) => {
     return this.httpClient.post<IResponse<ICity>>(`${this.urlApi}`, data, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),
@@ -35,7 +35,7 @@ export class CitiesService {
     );
   };
 
-  public update = (id: number, data: any) => {
+  public update = (id: number, data: Partial<ICity>) => {
     return this.httpClient.put<IResponse<ICity>>(
       `${this.urlApi}/${id}`,
       data,
