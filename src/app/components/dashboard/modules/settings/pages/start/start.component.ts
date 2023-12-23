@@ -85,13 +85,6 @@ export class StartComponent {
         icon: 'military-vehicle.png',
         url: '/dashboard/settings/types-of-vehicles',
       },
-      {
-        name: 'Colores de vehículos',
-        description:
-          'Colores que pueden tener los vehículos en la organización.',
-        icon: 'pincel.png',
-        url: '/dashboard/settings/colors-of-vehicles',
-      },
     ];
   }
 

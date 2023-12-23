@@ -16,6 +16,10 @@ export const settingsRoutes: Routes = [
         loadChildren: () => import('./modules/cities/cities.routes').then((r) => r.citiesRoutes),
       },
       {
+        path: 'motors-of-vehicles',
+        loadChildren: () => import('./modules/motors-of-vehicles/motors-of-vehicles.routes').then((r) => r.motorsOfVehiclesRoutes),
+      },
+      {
         path: '**',
         redirectTo: '',
       },
