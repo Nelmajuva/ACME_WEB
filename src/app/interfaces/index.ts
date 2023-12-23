@@ -1,5 +1,6 @@
 export * from './link.interface';
 export * from './user.interface';
+export * from './city.interface';
 export * from './sidebar.interface';
 export * from './settings.interface';
 export * from './response.interface';

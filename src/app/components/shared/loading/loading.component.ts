@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-loading',
@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   template: `
     <div class="w-full h-full flex items-center justify-center">
       <svg
-        class="animate-spin -ml-1 mr-3 h-4 w-4 text-blue-600"
+        class="animate-spin h-4 w-4 {{ isWhiteIndicator ? 'text-white' : 'text-blue-600' }}"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -30,4 +30,11 @@ import { Component } from '@angular/core';
   `,
   styles: ``,
 })
-export class LoadingComponent {}
+export class LoadingComponent {
+  @Input()
+  public isWhiteIndicator: boolean;
+
+  constructor() {
+    this.isWhiteIndicator = false;
+  }
+}

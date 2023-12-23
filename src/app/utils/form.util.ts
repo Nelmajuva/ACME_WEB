@@ -11,6 +11,15 @@ export class FormUtil {
   };
 
   /**
+   *  Check fied is valid.
+   *
+   * @returns ValidatorFn | null
+   */
+  public static checkField = (maxLength: number): ValidatorFn | null => {
+    return Validators.compose([Validators.required, Validators.maxLength(maxLength)]);
+  };
+
+  /**
    * Checks if the form is valid according to the value assigned in the controller.
    *
    * @param form - Form instance.
