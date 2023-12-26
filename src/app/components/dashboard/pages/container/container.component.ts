@@ -15,7 +15,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 
       <div class="lg:pl-20">
         <div class="w-full">
-          <div class="container mx-auto mt-4">
+          <div class="container xl:mx-auto mt-4">
             <router-outlet></router-outlet>
           </div>
         </div>

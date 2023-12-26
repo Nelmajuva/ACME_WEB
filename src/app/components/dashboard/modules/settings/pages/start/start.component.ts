@@ -85,6 +85,12 @@ export class StartComponent {
         icon: 'military-vehicle.png',
         url: '/dashboard/settings/types-of-vehicles',
       },
+      {
+        name: 'Marcas de vehículos',
+        description: 'Todas las marcas de los vehículos registrados en un solo lugar.',
+        icon: 'brands.png',
+        url: '/dashboard/settings/brands-of-vehicles',
+      },
     ];
   }
 

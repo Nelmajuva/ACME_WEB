@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Component, OnInit, inject } from '@angular/core';
 
 import { IVehicle } from '../../../../../../interfaces';
-import { SweetAlertUtil } from '../../../../../../utils';
+import { SweetAlertUtil, downloadBlobElement } from '../../../../../../utils';
 import { VehiclesService } from '../../../../../../services';
 
 @Component({
@@ -19,7 +19,16 @@ import { VehiclesService } from '../../../../../../services';
             Todos los vehículos que se encuentran registrados.
           </p>
         </div>
-        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+        <div
+          class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none flex items-center justify-center gap-2"
+        >
+          <button
+            type="button"
+            (click)="getReportOfVehicles()"
+            class="block rounded-md bg-green-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+          >
+            Reporte
+          </button>
           <button
             [routerLink]="'add'"
             type="button"
@@ -42,6 +51,12 @@ import { VehiclesService } from '../../../../../../services';
                     class="py-3.5 pl-4 pr-4 text-left text-sm font-semibold text-gray-900 sm:pl-0"
                   >
                     Placa
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-4 py-3.5 text-left text-sm font-semibold text-gray-900"
+                  >
+                    Marca
                   </th>
                   <th
                     scope="col"
@@ -82,6 +97,9 @@ import { VehiclesService } from '../../../../../../services';
                     class="whitespace-nowrap py-4 pl-4 pr-4 text-sm font-medium text-gray-900 sm:pl-0"
                   >
                     {{ vehicle.plate }}
+                  </td>
+                  <td class="whitespace-nowrap p-4 text-sm text-gray-500">
+                    {{ vehicle.brand_of_vehicle.name }}
                   </td>
                   <td class="whitespace-nowrap p-4 text-sm text-gray-500">
                     {{ vehicle.motor_of_vehicle.name }}
@@ -149,6 +167,22 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.index();
   }
+
+  /**
+   * Generate report of vehicles.
+   *
+   * @returns - Void
+   */
+  public getReportOfVehicles = () => {
+    this.vehiclesService.getReportOfVehicles().subscribe({
+      next: (res) => {
+        downloadBlobElement(res, 'informe_vehiculos_' + new Date().getTime());
+      },
+      error: () => {
+        SweetAlertUtil.showServerErrorAlert();
+      },
+    });
+  };
 
   /**
    * Get all vehicles in database.

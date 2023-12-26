@@ -5,4 +5,5 @@ export { AccountsService } from './accounts/accounts.service';
 export { VehiclesService } from './vehicles/vehicles.service';
 export { TypesOfAccountsService } from './types-of-accounts/types-of-accounts.service';
 export { TypesOfVehiclesService } from './types-of-vehicles/types-of-vehicles.service';
+export { BrandsOfVehiclesService } from './brands-of-vehicles/brands-of-vehicles.service';
 export { MotorsOfVehiclesService } from './motors-of-vehicles/motors-of-vehicles.service';

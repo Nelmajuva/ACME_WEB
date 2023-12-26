@@ -13,6 +13,7 @@ export * from './sweetalert.interface';
 export * from './info-response.interface';
 export * from './type-of-account.interface';
 export * from './type-of-vehicle.interface';
+export * from './brand-of-vehicle.interface';
 export * from './resource-vehicle.interface';
 export * from './motor-of-vehicle.interface';
 export * from './sign-in-with-email-and-password-form.interface';

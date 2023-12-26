@@ -4,6 +4,7 @@ export interface IStats {
     motors_vehicles: number;
     owners: number;
     types_vehicles: number;
+    brands_vehicles: number;
     users: number;
     vehicles: number;
 }

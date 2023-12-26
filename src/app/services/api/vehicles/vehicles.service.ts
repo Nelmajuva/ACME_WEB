@@ -2,10 +2,15 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from '../../../app.config';
-import { IInfoResponse, IResourceVehicle, IResponse, IVehicle } from '../../../interfaces';
+import {
+  IInfoResponse,
+  IResourceVehicle,
+  IResponse,
+  IVehicle,
+} from '../../../interfaces';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VehiclesService {
   private readonly urlApi: string;
@@ -16,12 +21,28 @@ export class VehiclesService {
     this.httpClient = inject(HttpClient);
   }
 
+  public getReportOfVehicles = () => {
+    return this.httpClient.post(
+      `${this.urlApi}/report`,
+      {},
+      {
+        responseType: 'blob',
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),
+        }),
+      }
+    );
+  };
+
   public resources = () => {
-    return this.httpClient.get<IResponse<IResourceVehicle>>(`${this.urlApi}/resources`, {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),
-      }),
-    });
+    return this.httpClient.get<IResponse<IResourceVehicle>>(
+      `${this.urlApi}/resources`,
+      {
+        headers: new HttpHeaders({
+          Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),
+        }),
+      }
+    );
   };
 
   public store = (data: Partial<IVehicle>) => {

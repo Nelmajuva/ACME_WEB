@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import {
   IAccount,
+  IBrandOfVehicle,
   IMotorOfVehicle,
   IResponse,
   ITypeOfVehicle,
@@ -60,7 +61,7 @@ import { LoadingComponent } from '../../../../../shared/loading/loading.componen
                   <p
                     class="text-xs text-red-600 mt-1 animate__animated animate__fadeInUp"
                   >
-                    La placa es un campo requerido y no puede tener más de 32
+                    La placa es un campo requerido y no puede tener más de 8
                     dígitos.
                   </p>
                   }
@@ -117,6 +118,36 @@ import { LoadingComponent } from '../../../../../shared/loading/loading.componen
                     class="text-xs text-red-600 mt-1 animate__animated animate__fadeInUp"
                   >
                     El motor del vehículo es un campo requerido.
+                  </p>
+                  }
+                </div>
+              </div>
+
+              <div class="sm:col-span-3">
+                <label
+                  for="brand_of_vehicle"
+                  class="block text-sm font-medium leading-6 text-gray-900"
+                  >Marca de vehículo <span class="text-red-600">*</span></label
+                >
+                <div class="mt-2">
+                  <select
+                    id="brand_of_vehicle"
+                    name="brand_of_vehicle"
+                    formControlName="brand_of_vehicle_id"
+                    class="block w-full rounded-md outline-none border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  >
+                    @for(brandOfVehicle of getListBrandsOfVehicles; track
+                    $index) {
+                    <option [value]="brandOfVehicle.id">
+                      {{ brandOfVehicle.name }}
+                    </option>
+                    }
+                  </select>
+                  @if(validate('brand_of_vehicle_id')) {
+                  <p
+                    class="text-xs text-red-600 mt-1 animate__animated animate__fadeInUp"
+                  >
+                    La marca del vehículo es un campo requerido.
                   </p>
                   }
                 </div>
@@ -243,6 +274,7 @@ export class AddComponent implements OnInit {
   private listOfDrivers: IAccount[];
   private listMotorsOfVehicles: IMotorOfVehicle[];
   private listTypesOfVehicles: ITypeOfVehicle[];
+  private listBrandsOfVehicles: IBrandOfVehicle[];
 
   private readonly router: Router;
   private readonly form: FormGroup;
@@ -255,6 +287,7 @@ export class AddComponent implements OnInit {
     this.listOfDrivers = [];
     this.listMotorsOfVehicles = [];
     this.listTypesOfVehicles = [];
+    this.listBrandsOfVehicles = [];
 
     this.router = inject(Router);
     this.formBuilder = inject(FormBuilder);
@@ -264,6 +297,7 @@ export class AddComponent implements OnInit {
       plate: ['', FormUtil.checkField(8)],
       motor_of_vehicle_id: ['', FormUtil.checkField()],
       type_of_vehicle_id: ['', FormUtil.checkField()],
+      brand_of_vehicle_id: ['', FormUtil.checkField()],
       driver_uuid: ['', FormUtil.checkField()],
       owner_uuid: ['', FormUtil.checkField()],
       color: ['#000', FormUtil.checkField()],
@@ -288,6 +322,7 @@ export class AddComponent implements OnInit {
       this.listOfDrivers = data.drivers;
       this.listTypesOfVehicles = data.types_of_vehicles;
       this.listMotorsOfVehicles = data.motors_of_vehicles;
+      this.listBrandsOfVehicles = data.brands_of_vehicles;
     });
   };
 
@@ -367,5 +402,9 @@ export class AddComponent implements OnInit {
 
   public get getListTypesOfVehicles() {
     return this.listTypesOfVehicles;
+  }
+
+  public get getListBrandsOfVehicles() {
+    return this.listBrandsOfVehicles;
   }
 }

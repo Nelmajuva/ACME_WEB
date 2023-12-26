@@ -24,6 +24,10 @@ export const settingsRoutes: Routes = [
         loadChildren: () => import('./modules/types-of-vehicles/types-of-vehicles.routes').then((r) => r.typesOfVehiclesRoutes),
       },
       {
+        path: 'brands-of-vehicles',
+        loadChildren: () => import('./modules/brands-of-vehicles/brands-of-vehicles.routes').then((r) => r.brandsOfVehiclesRoutes),
+      },
+      {
         path: '**',
         redirectTo: '',
       },

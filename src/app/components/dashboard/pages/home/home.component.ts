@@ -8,7 +8,7 @@ import { StatsInDatabaseComponent } from '../../components/stats-in-database/sta
   standalone: true,
   imports: [StatsInDatabaseComponent, AlertWelcomeComponent],
   template: `
-    <div class="animate__animated animate__fadeIn w-full">
+    <div class="px-4 sm:px-6 lg:px-8 animate__animated animate__fadeIn w-full">
       <app-alert-welcome></app-alert-welcome>
       <app-stats-in-database></app-stats-in-database>
     </div>
