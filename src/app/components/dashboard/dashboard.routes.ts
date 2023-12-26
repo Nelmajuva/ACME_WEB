@@ -1,11 +1,13 @@
 import { Routes } from '@angular/router';
 
+import { dashboardGuard } from '../../guards/dashboard/dashboard.guard';
 import { ContainerComponent } from './pages/container/container.component';
 
 export const dashboardRoutes: Routes = [
   {
     path: '',
     component: ContainerComponent,
+    canActivate: [dashboardGuard],
     children: [
       {
         path: '',
@@ -13,7 +15,11 @@ export const dashboardRoutes: Routes = [
       },
       {
         path: 'vehicles',
-        loadChildren: () => import('./modules/vehicles/vehicles.routes').then((r) => r.authRoutes),
+        loadChildren: () => import('./modules/vehicles/vehicles.routes').then((r) => r.vehiclesRoutes),
+      },
+      {
+        path: 'accounts',
+        loadChildren: () => import('./modules/accounts/accounts.routes').then((r) => r.accountsRoutes),
       },
       {
         path: 'settings',

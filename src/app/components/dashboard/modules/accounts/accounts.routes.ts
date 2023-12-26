@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const vehiclesRoutes: Routes = [
+export const accountsRoutes: Routes = [
   {
     path: '',
     children: [
@@ -13,7 +13,7 @@ export const vehiclesRoutes: Routes = [
         loadComponent: () => import('./pages/add/add.component').then((c) => c.AddComponent),
       },
       {
-        path: ':uuid',
+        path: 'edit/:uuid',
         loadComponent: () => import('./pages/edit/edit.component').then((c) => c.EditComponent),
       },
       {

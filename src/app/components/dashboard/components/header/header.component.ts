@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+
+import { AuthService } from '../../../../services';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +22,7 @@ import { Component } from '@angular/core';
           <div class="flex items-center gap-x-4 lg:gap-x-6">
             <div class="relative">
               <button
+                (click)="signOut()"
                 type="button"
                 class="inline-flex items-center gap-x-1.5 rounded-md bg-gray-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:bg-gray-900"
               >
@@ -34,4 +37,17 @@ import { Component } from '@angular/core';
   `,
   styles: ``,
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  private readonly authService: AuthService;
+
+  constructor() {
+    this.authService = inject(AuthService);
+  }
+
+  signOut = () => {
+    this.authService.signOut().subscribe(() => {
+      sessionStorage.clear();
+      window.location.reload();
+    });
+  };
+}

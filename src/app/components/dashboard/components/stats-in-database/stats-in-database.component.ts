@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+
+import { IStats } from '../../../../interfaces';
+import { StatsService } from '../../../../services';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-stats-in-database',
@@ -18,7 +22,7 @@ import { Component } from '@angular/core';
         <dd
           class="w-full flex-none text-5xl font-medium leading-10 tracking-tight text-gray-900"
         >
-          46
+          {{ getStats?.drivers }}
         </dd>
       </div>
       <div
@@ -30,7 +34,7 @@ import { Component } from '@angular/core';
         <dd
           class="w-full flex-none text-5xl font-medium leading-10 tracking-tight text-gray-900"
         >
-          6
+          {{ getStats?.owners }}
         </dd>
       </div>
       <div
@@ -40,7 +44,7 @@ import { Component } from '@angular/core';
         <dd
           class="w-full flex-none text-5xl font-medium leading-10 tracking-tight text-gray-900"
         >
-          12
+          {{ getStats?.vehicles }}
         </dd>
       </div>
       <div
@@ -50,7 +54,7 @@ import { Component } from '@angular/core';
         <dd
           class="w-full flex-none text-5xl font-medium leading-10 tracking-tight text-gray-900"
         >
-          67
+          {{ getStats?.cities }}
         </dd>
       </div>
       <div
@@ -62,7 +66,7 @@ import { Component } from '@angular/core';
         <dd
           class="w-full flex-none text-5xl font-medium leading-10 tracking-tight text-gray-900"
         >
-          67
+          {{ getStats?.motors_vehicles }}
         </dd>
       </div>
       <div
@@ -74,19 +78,7 @@ import { Component } from '@angular/core';
         <dd
           class="w-full flex-none text-5xl font-medium leading-10 tracking-tight text-gray-900"
         >
-          67
-        </dd>
-      </div>
-      <div
-        class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
-      >
-        <dt class="text-sm font-medium leading-6 text-gray-500">
-          Tipos de cuentas
-        </dt>
-        <dd
-          class="w-full flex-none text-5xl font-medium leading-10 tracking-tight text-gray-900"
-        >
-          67
+          {{ getStats?.types_vehicles }}
         </dd>
       </div>
       <div
@@ -96,11 +88,31 @@ import { Component } from '@angular/core';
         <dd
           class="w-full flex-none text-5xl font-medium leading-10 tracking-tight text-gray-900"
         >
-          67
+          {{ getStats?.users }}
         </dd>
       </div>
     </dl>
   `,
   styles: ``,
 })
-export class StatsInDatabaseComponent {}
+export class StatsInDatabaseComponent implements OnInit {
+  private readonly statsService: StatsService;
+
+  private stats: IStats | null;
+
+  constructor() {
+    this.stats = null;
+
+    this.statsService = inject(StatsService);
+  }
+
+  ngOnInit(): void {
+    this.statsService.index().subscribe((res) => {
+      this.stats = res.message;
+    });
+  }
+
+  public get getStats() {
+    return this.stats;
+  }
+}

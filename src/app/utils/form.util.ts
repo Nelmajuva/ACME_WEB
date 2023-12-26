@@ -15,8 +15,13 @@ export class FormUtil {
    *
    * @returns ValidatorFn | null
    */
-  public static checkField = (maxLength: number): ValidatorFn | null => {
-    return Validators.compose([Validators.required, Validators.maxLength(maxLength)]);
+  public static checkField = (
+    maxLength?: number,
+    isRequired: boolean = true
+  ): ValidatorFn | null => {
+    const listOfValidations = isRequired ? [Validators.required] : [];
+    if (maxLength) listOfValidations.push(Validators.maxLength(maxLength));
+    return Validators.compose(listOfValidations);
   };
 
   /**
