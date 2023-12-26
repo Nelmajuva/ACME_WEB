@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
-import { authGuard } from '../../guards/auth/auth.guard';
+import { AuthGuard } from '../../guards/auth/auth.guard';
 import { ContainerComponent } from './pages/container/container.component';
 
 export const authRoutes: Routes = [
   {
     path: '',
     component: ContainerComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'sign-in',

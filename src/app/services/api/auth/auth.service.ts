@@ -29,10 +29,8 @@ export class AuthService {
   };
 
   signOut = () => {
-    sessionStorage.clear();
-    return this.httpClient.post<void>(
+    return this.httpClient.get(
       `${this.urlApi}/sign-out`,
-      {},
       {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),

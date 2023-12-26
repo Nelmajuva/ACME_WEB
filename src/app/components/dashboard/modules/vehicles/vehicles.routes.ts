@@ -13,8 +13,12 @@ export const vehiclesRoutes: Routes = [
         loadComponent: () => import('./pages/add/add.component').then((c) => c.AddComponent),
       },
       {
-        path: ':uuid',
+        path: 'edit/:uuid',
         loadComponent: () => import('./pages/edit/edit.component').then((c) => c.EditComponent),
+      },
+      {
+        path: 'view/:uuid',
+        loadComponent: () => import('./pages/view/view.component').then((c) => c.ViewComponent),
       },
       {
         path: '**',

@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
-import { dashboardGuard } from '../../guards/dashboard/dashboard.guard';
+import { DashboardGuard } from '../../guards/dashboard/dashboard.guard';
 import { ContainerComponent } from './pages/container/container.component';
 
 export const dashboardRoutes: Routes = [
   {
     path: '',
     component: ContainerComponent,
-    canActivate: [dashboardGuard],
+    canActivate: [DashboardGuard],
     children: [
       {
         path: '',

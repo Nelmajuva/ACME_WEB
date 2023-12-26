@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { ISidebar } from '../../../../interfaces';
+import { AuthService } from '../../../../services';
+import { SweetAlertUtil } from '../../../../utils';
 
 @Component({
   selector: 'app-sidebar',
@@ -35,6 +37,7 @@ import { ISidebar } from '../../../../interfaces';
       </nav>
       <div class="w-full flex justify-center">
         <button
+          (click)="signOut()"
           type="button"
           class="w-10 h-10 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         >
@@ -46,9 +49,14 @@ import { ISidebar } from '../../../../interfaces';
   styles: ``,
 })
 export class SidebarComponent {
+  private isLoading: boolean;
+
+  private readonly authService: AuthService;
   private readonly menuOptions: ISidebar[];
 
   constructor() {
+    this.isLoading = false;
+    this.authService = inject(AuthService);
     this.menuOptions = [
       {
         name: 'Dashboard',
@@ -71,6 +79,27 @@ export class SidebarComponent {
         icon: 'fa-solid fa-gears text-base',
       },
     ];
+  }
+
+  signOut = () => {
+    if (this.isLoading) return;
+    this.isLoading = true;
+
+    this.authService.signOut().subscribe({
+      next: () => {
+        this.isLoading = false;
+        sessionStorage.removeItem('token_access');
+        window.location.reload();
+      },
+      error: () => {
+        this.isLoading = false;
+        SweetAlertUtil.showServerErrorAlert();
+      },
+    });
+  };
+
+  public get getIsLoading() {
+    return this.isLoading;
   }
 
   public get getMenuOptions() {

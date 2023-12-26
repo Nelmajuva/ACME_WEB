@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 
 import { AuthService } from '../../../../services';
+import { SweetAlertUtil } from '../../../../utils';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [LoadingComponent],
   template: `
     <div class="lg:pl-20">
       <div
@@ -26,8 +28,11 @@ import { AuthService } from '../../../../services';
                 type="button"
                 class="inline-flex items-center gap-x-1.5 rounded-md bg-gray-800 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:bg-gray-900"
               >
+                @if(getIsLoading) {
+                <app-loading [isWhiteIndicator]="true"></app-loading>
+                } @else {
                 <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i>
-                Cerrar sesión
+                Cerrar sesión }
               </button>
             </div>
           </div>
@@ -38,16 +43,34 @@ import { AuthService } from '../../../../services';
   styles: ``,
 })
 export class HeaderComponent {
+  private isLoading: boolean;
+
   private readonly authService: AuthService;
 
   constructor() {
+    this.isLoading = false;
+
     this.authService = inject(AuthService);
   }
 
   signOut = () => {
-    this.authService.signOut().subscribe(() => {
-      sessionStorage.clear();
-      window.location.reload();
+    if (this.isLoading) return;
+    this.isLoading = true;
+
+    this.authService.signOut().subscribe({
+      next: () => {
+        this.isLoading = false;
+        sessionStorage.removeItem('token_access');
+        window.location.reload();
+      },
+      error: () => {
+        this.isLoading = false;
+        SweetAlertUtil.showServerErrorAlert();
+      },
     });
   };
+
+  public get getIsLoading() {
+    return this.isLoading;
+  }
 }
