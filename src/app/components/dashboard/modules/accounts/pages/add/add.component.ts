@@ -3,16 +3,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-import { switchMap } from 'rxjs';
-
+import { AccountsService } from '../../../../../../services';
 import { FormUtil, SweetAlertUtil } from '../../../../../../utils';
 import { ICity, IResponse, ITypeOfAccount } from '../../../../../../interfaces';
 import { LoadingComponent } from '../../../../../shared/loading/loading.component';
-import {
-  AccountsService,
-  CitiesService,
-  TypesOfAccountsService,
-} from '../../../../../../services';
 
 @Component({
   selector: 'app-add',
@@ -104,7 +98,8 @@ import {
                 <label
                   for="document"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Número de documento <span class="text-red-600">*</span></label
+                  >Número de documento
+                  <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <input
@@ -270,9 +265,7 @@ export class AddComponent implements OnInit {
   private readonly router: Router;
   private readonly form: FormGroup;
   private readonly formBuilder: FormBuilder;
-  private readonly citiesService: CitiesService;
   private readonly accountsService: AccountsService;
-  private readonly typesOfAccountsService: TypesOfAccountsService;
 
   constructor() {
     this.isLoading = false;
@@ -281,9 +274,7 @@ export class AddComponent implements OnInit {
 
     this.router = inject(Router);
     this.formBuilder = inject(FormBuilder);
-    this.citiesService = inject(CitiesService);
     this.accountsService = inject(AccountsService);
-    this.typesOfAccountsService = inject(TypesOfAccountsService);
 
     this.form = this.formBuilder.group({
       type_of_account_id: ['', FormUtil.checkField()],
@@ -298,16 +289,10 @@ export class AddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.citiesService
-      .index()
-      .pipe(
-        switchMap((res) => {
-          this.listOfCities = res.message.data;
-
-          return this.typesOfAccountsService.index();
-        })
-      )
-      .subscribe((res) => (this.listTypesOfAccounts = res.message.data));
+    this.accountsService.getResources().subscribe((res) => {
+      this.listOfCities = res.message.cities;
+      this.listTypesOfAccounts = res.message.types_of_accounts;
+    });
   }
 
   /**

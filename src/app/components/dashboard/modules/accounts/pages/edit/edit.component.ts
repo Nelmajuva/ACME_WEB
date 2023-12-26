@@ -2,16 +2,12 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-import { Subscription, switchMap } from 'rxjs';
+import { Subscription } from 'rxjs';
 
+import { AccountsService } from '../../../../../../services';
 import { FormUtil, SweetAlertUtil } from '../../../../../../utils';
 import { ICity, ITypeOfAccount } from '../../../../../../interfaces';
 import { LoadingComponent } from '../../../../../shared/loading/loading.component';
-import {
-  AccountsService,
-  CitiesService,
-  TypesOfAccountsService,
-} from '../../../../../../services';
 
 @Component({
   selector: 'app-edit',
@@ -103,7 +99,8 @@ import {
                 <label
                   for="document"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Número de documento <span class="text-red-600">*</span></label
+                  >Número de documento
+                  <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <input
@@ -292,11 +289,9 @@ export class EditComponent implements OnInit, OnDestroy {
   private readonly router: Router;
   private readonly form: FormGroup;
   private readonly formBuilder: FormBuilder;
-  private readonly citiesService: CitiesService;
   private readonly activatedRoute: ActivatedRoute;
   private readonly accountsService: AccountsService;
   private readonly listOfSubscriptions$: Subscription[];
-  private readonly typesOfAccountsService: TypesOfAccountsService;
 
   constructor() {
     this.uuid = null;
@@ -308,10 +303,8 @@ export class EditComponent implements OnInit, OnDestroy {
 
     this.router = inject(Router);
     this.formBuilder = inject(FormBuilder);
-    this.citiesService = inject(CitiesService);
     this.activatedRoute = inject(ActivatedRoute);
     this.accountsService = inject(AccountsService);
-    this.typesOfAccountsService = inject(TypesOfAccountsService);
 
     this.form = this.formBuilder.group({
       status: [1],
@@ -336,16 +329,10 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   private getResources = () => {
-    this.citiesService
-      .index()
-      .pipe(
-        switchMap((res) => {
-          this.listOfCities = res.message.data;
-
-          return this.typesOfAccountsService.index();
-        })
-      )
-      .subscribe((res) => (this.listTypesOfAccounts = res.message.data));
+    this.accountsService.getResources().subscribe((res) => {
+      this.listOfCities = res.message.cities;
+      this.listTypesOfAccounts = res.message.types_of_accounts;
+    });
   };
 
   /**

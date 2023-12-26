@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from '../../../app.config';
-import { IAccount, IInfoResponse, IResponse } from '../../../interfaces';
+import { IAccount, IInfoResponse, IResourceAccount, IResponse } from '../../../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,14 @@ export class AccountsService {
     this.urlApi = `${environment.urlApi}/accounts`;
     this.httpClient = inject(HttpClient);
   }
+
+  public getResources = () => {
+    return this.httpClient.get<IResponse<IResourceAccount>>(`${this.urlApi}/resources`, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),
+      }),
+    });
+  };
 
   public store = (data: Partial<IAccount>) => {
     return this.httpClient.post<IResponse<IAccount>>(`${this.urlApi}`, data, {
