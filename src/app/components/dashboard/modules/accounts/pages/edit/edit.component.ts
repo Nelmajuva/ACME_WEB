@@ -46,7 +46,7 @@ import {
                 <label
                   for="type_of_account"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Tipo de cuenta</label
+                  >Tipo de cuenta <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <select
@@ -75,7 +75,7 @@ import {
                 <label
                   for="city"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Ciudad</label
+                  >Ciudad <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <select
@@ -103,7 +103,7 @@ import {
                 <label
                   for="document"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Número de documento</label
+                  >Número de documento <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <input
@@ -127,7 +127,7 @@ import {
                 <label
                   for="first_name"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Primer nombre</label
+                  >Primer nombre <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <input
@@ -170,7 +170,7 @@ import {
                   surnames
                   for="surnames"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Apellidos</label
+                  >Apellidos <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <input
@@ -194,7 +194,7 @@ import {
                 <label
                   for="phone_number"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Número de celular</label
+                  >Número de celular <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <input
@@ -218,7 +218,7 @@ import {
                 <label
                   for="address"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Dirección</label
+                  >Dirección <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <input

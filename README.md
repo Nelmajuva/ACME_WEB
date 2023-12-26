@@ -46,7 +46,7 @@ $ git remote add origin https://github.com/Nelmajuva/ACME_WEB.git
 2. Instala las dependencias:
 
 ```bash
-$ npm install --legacy-peer-deps
+$ npm install --force
 ```
 
 3. Verifique que el archivo `app > app.config.ts` contenga las variables de entorno correctas para funcionar.

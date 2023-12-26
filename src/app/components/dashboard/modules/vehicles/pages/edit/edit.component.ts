@@ -46,7 +46,7 @@ import {
                 <label
                   for="plate"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Placa</label
+                  >Placa <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <input
@@ -71,7 +71,7 @@ import {
                 <label
                   for="color"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Color</label
+                  >Color <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <input
@@ -96,7 +96,7 @@ import {
                 <label
                   for="motor_of_vehicle"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Motor de vehículo</label
+                  >Motor de vehículo <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <select
@@ -126,7 +126,7 @@ import {
                 <label
                   for="type_of_vehicle"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Tipo de vehículo</label
+                  >Tipo de vehículo <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <select
@@ -156,7 +156,7 @@ import {
                 <label
                   for="driver"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Conductor</label
+                  >Conductor <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <select
@@ -186,7 +186,7 @@ import {
                 <label
                   for="owner"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Propietario</label
+                  >Propietario <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <select

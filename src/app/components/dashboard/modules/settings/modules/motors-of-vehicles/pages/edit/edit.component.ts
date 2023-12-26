@@ -41,7 +41,7 @@ import { LoadingComponent } from '../../../../../../../shared/loading/loading.co
                 <label
                   for="name"
                   class="block text-sm font-medium leading-6 text-gray-900"
-                  >Nombre</label
+                  >Nombre <span class="text-red-600">*</span></label
                 >
                 <div class="mt-2">
                   <input
