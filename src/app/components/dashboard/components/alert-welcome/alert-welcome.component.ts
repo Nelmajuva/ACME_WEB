@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+
+import { IAppState, IAuthState, IUser } from '../../../../interfaces';
+
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-alert-welcome',
@@ -23,9 +28,9 @@ import { Component } from '@angular/core';
         </div>
         <div class="ml-3 flex-1 md:flex md:justify-between">
           <p class="text-sm text-blue-700">
-            Hola ADMIN, intente agregar elementos adicionales acorde a la prueba
-            y mi experiencia como desarrollador para destacar en este
-            entregable.
+            Hola <strong>{{ getUser?.email }}</strong
+            >, intente agregar elementos adicionales acorde a la prueba y mi
+            experiencia como desarrollador para destacar en este entregable.
           </p>
           <p class="text-sm">
             <a
@@ -43,4 +48,33 @@ import { Component } from '@angular/core';
   `,
   styles: ``,
 })
-export class AlertWelcomeComponent {}
+export class AlertWelcomeComponent implements OnInit, OnDestroy {
+  private readonly store: Store<IAppState>;
+  private readonly listOfSubscriptions$: Subscription[];
+
+  private user: IUser | null;
+
+  constructor() {
+    this.user = null;
+
+    this.store = inject(Store<IAppState>);
+
+    this.listOfSubscriptions$ = [];
+  }
+
+  ngOnInit(): void {
+    this.listOfSubscriptions$.push(
+      this.store.select('auth').subscribe((res: IAuthState) => {
+        this.user = res.user;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.listOfSubscriptions$.forEach((sub$) => sub$.unsubscribe());
+  }
+
+  public get getUser() {
+    return this.user;
+  }
+}

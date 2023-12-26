@@ -1,5 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpContext,
+  HttpContextToken,
+  HttpHeaders,
+} from '@angular/common/http';
 
 import { environment } from '../../../app.config';
 import {
@@ -24,18 +29,29 @@ export class AuthService {
   signInWithEmailAndPassword = (data: ISignInWithEmailAndPasswordForm) => {
     return this.httpClient.post<IResponse<ISignInWithEmailAndPasswordResponse>>(
       `${this.urlApi}/sign-in-with-email-and-password`,
-      data
+      data,
+      {
+        context: new HttpContext().set(
+          new HttpContextToken<boolean>(() => false),
+          true
+        ),
+      }
     );
   };
 
   signOut = () => {
-    return this.httpClient.get(
-      `${this.urlApi}/sign-out`,
-      {
-        headers: new HttpHeaders({
-          Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),
-        }),
-      }
-    );
+    return this.httpClient.get(`${this.urlApi}/sign-out`, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),
+      }),
+    });
+  };
+  
+  me = () => {
+    return this.httpClient.get<IResponse<ISignInWithEmailAndPasswordResponse>>(`${this.urlApi}/me`, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + sessionStorage.getItem('token_access'),
+      }),
+    });
   };
 }

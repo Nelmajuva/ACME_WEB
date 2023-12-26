@@ -40,7 +40,7 @@ $ npm i @angular/cli --location=global
 1. Clona el repositorio:
 
 ```bash
-$ git remote add origin https://github.com/Nelmajuva/ACME_WEB.git
+$ git clone https://github.com/Nelmajuva/ACME_WEB.git
 ```
 
 2. Instala las dependencias:
@@ -49,7 +49,7 @@ $ git remote add origin https://github.com/Nelmajuva/ACME_WEB.git
 $ npm install --force
 ```
 
-3. Verifique que el archivo `app > app.config.ts` contenga las variables de entorno correctas para funcionar.
+3. Verifique que el archivo `src > app > app.config.ts` contenga las variables de entorno correctas para funcionar.
 
 4. Ejecutar alguno de los siguientes comandos para iniciar la WEB de Angular:
 
